@@ -7,11 +7,14 @@ export function Rectangles() {
   const { regions } = useGlobalStore();
   return (
     <Flex
-      border={"1px solid black"}
+      flexBasis={"40%"}
+      bg={"gray.100"}
       direction={"column"}
       w={"100%"}
       overflowY={"scroll"}
-      maxH={540}
+      maxH={557}
+      p={4}
+      gap={4}
     >
       {regions.map((region, index) => (
         <Rectangle key={region.id} region={region} index={index} />

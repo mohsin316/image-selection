@@ -1,4 +1,4 @@
-import { Button, Heading } from "@chakra-ui/react";
+import { Button, Heading, Tooltip } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
 import { handleExport } from "../../utils/ImageHandling";
 import { useGlobalStore } from "../../hooks/zustand/useGlobalStore";
@@ -14,10 +14,10 @@ export function Controls() {
     scale,
   } = useGlobalStore();
   return (
-    <Flex border={"1px solid black"} direction={"column"} w={"100%"}>
-      <Heading color={"black"}>Controls</Heading>
+    <Flex direction={"column"} w={"100%"} p={2} gap={4}>
+      <Heading color={"black"}>Controls (Scroll to zoom in/out)</Heading>
 
-      <Flex gap={2}>
+      <Flex gap={4}>
         {(stagePos.x !== 0 || stagePos.y !== 0 || scale !== 1) && (
           <Button
             onClick={() => {

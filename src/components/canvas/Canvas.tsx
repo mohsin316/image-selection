@@ -33,14 +33,14 @@ export const Canvas = () => {
 
   return (
     <Flex border={"1px solid black"} direction={"column"} w={"100%"}>
-      <Flex justify={"space-between"} align={"center"} w={"100%"}>
-        <CanvasHeading
-          stageRef={stageRef}
-          setImage={setImage}
-          setStagePos={setStagePos}
-          setScale={setScale}
-        />
-      </Flex>
+      <CanvasHeading
+        stageRef={stageRef}
+        image={image}
+        setImage={setImage}
+        setStagePos={setStagePos}
+        setScale={setScale}
+      />
+
       <Stage
         onMouseDown={(e) => {
           if (!image || !isDrawMode) return;
@@ -102,13 +102,21 @@ export const Canvas = () => {
                   stroke={region.color}
                   strokeWidth={1}
                 />
-                <Text
-                  text={region.label}
-                  fontSize={14}
-                  fill="black"
-                  x={2}
-                  y={-18}
-                />
+                <Group x={0} y={-20}>
+                  <Rect
+                    fill={region.color}
+                    width={region.label ? region.label.length * 8 + 12 : 0}
+                    height={20}
+                    cornerRadius={4}
+                  />
+                  <Text
+                    text={region.label}
+                    fontSize={14}
+                    fill="white"
+                    x={6}
+                    y={3}
+                  />
+                </Group>
               </Group>
             ))}
 

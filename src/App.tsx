@@ -12,6 +12,7 @@ function App() {
       w={"100%"}
       justify={"center"}
       align={"center"}
+      bg={"white"}
     >
       <Flex w={"90%"} bg="white" color={"black"} direction={"column"}>
         <Flex w={"100%"}>
