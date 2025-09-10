@@ -11,18 +11,14 @@ export function Controls() {
     setStagePos,
     setScale,
     stagePos,
+    scale,
   } = useGlobalStore();
   return (
-    <Flex
-      border={"1px solid black"}
-      w={"500px"}
-      h={"100px"}
-      direction={"column"}
-    >
+    <Flex border={"1px solid black"} direction={"column"} w={"100%"}>
       <Heading color={"black"}>Controls</Heading>
 
       <Flex gap={2}>
-        {stagePos.x !== 0 && stagePos.y !== 0 && (
+        {(stagePos.x !== 0 || stagePos.y !== 0 || scale !== 1) && (
           <Button
             onClick={() => {
               setStagePos({ x: 0, y: 0 });

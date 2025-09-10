@@ -13,6 +13,23 @@ export const useGlobalStore = create<State & Actions>()(
         state.regions = regions;
       });
     },
+    addRegion: (region) => {
+      return set((state) => {
+        state.regions.push(region);
+      });
+    },
+    updateRegion: (region) => {
+      return set((state) => {
+        state.regions = state.regions.map((r) =>
+          r.id === region.id ? region : r
+        );
+      });
+    },
+    deleteRegion: (region) => {
+      return set((state) => {
+        state.regions = state.regions.filter((r) => r.id !== region.id);
+      });
+    },
     setIsDrawMode: (isDrawMode) => {
       return set((state) => {
         state.isDrawMode = isDrawMode;

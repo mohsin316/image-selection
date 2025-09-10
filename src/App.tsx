@@ -2,19 +2,24 @@ import { Flex } from "@chakra-ui/react";
 
 import { Canvas } from "./components/canvas/Canvas";
 import Controls from "./components/controls/Controls";
+import { Rectangles } from "./components/rectangles/Rectangles";
 
 function App() {
   return (
     <Flex
       direction={"column"}
       minH={"100vh"}
-      bg="white"
-      color={"black"}
+      w={"100%"}
       justify={"center"}
       align={"center"}
     >
-      <Canvas />
-      <Controls />
+      <Flex w={"90%"} bg="white" color={"black"} direction={"column"}>
+        <Flex w={"100%"}>
+          <Canvas />
+          <Rectangles />
+        </Flex>
+        <Controls />
+      </Flex>
     </Flex>
   );
 }
