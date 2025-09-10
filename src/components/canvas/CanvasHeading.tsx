@@ -1,4 +1,4 @@
-import { Button, Heading, FileUpload } from "@chakra-ui/react";
+import { Button, Heading, FileUpload, Flex } from "@chakra-ui/react";
 import type Konva from "konva";
 import { handleExport, handleFileChange } from "../../utils/ImageHandling";
 import { HiUpload } from "react-icons/hi";
@@ -6,20 +6,23 @@ import { useGlobalStore } from "../../hooks/zustand/useGlobalStore";
 export function CanvasHeading({
   stageRef,
   setImage,
+  image,
   setStagePos,
   setScale,
 }: {
   stageRef: React.RefObject<Konva.Stage | null>;
   setImage: (image: HTMLImageElement) => void;
+  image: HTMLImageElement | undefined;
   setStagePos: (stagePos: { x: number; y: number }) => void;
   setScale: (scale: number) => void;
 }) {
   const { setRegions } = useGlobalStore();
   return (
-    <>
-      <Heading color={"black"}>Canvas</Heading>
+    <Flex justify={"space-between"} align={"center"} w={"100%"} p={2} gap={4}>
+      <Heading color={"black"}>Image Modifier</Heading>
       <Button
         ml={"auto"}
+        disabled={!image}
         onClick={() => handleExport({ stageRef })}
         variant={"plain"}
         color={"black"}
@@ -42,6 +45,6 @@ export function CanvasHeading({
           </Button>
         </FileUpload.Trigger>
       </FileUpload.Root>
-    </>
+    </Flex>
   );
 }
