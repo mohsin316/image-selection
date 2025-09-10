@@ -1,7 +1,6 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useGlobalStore } from "../../hooks/zustand/useGlobalStore";
 import { Rectangle } from "./Rectangle";
-import { CANVAS_HEIGHT } from "../../utils/common";
 
 export function Rectangles() {
   const { regions } = useGlobalStore();

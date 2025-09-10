@@ -41,7 +41,7 @@ export function CanvasHeading({
         />
         <FileUpload.Trigger asChild>
           <Button variant={"plain"} color={"black"} outline={"1px solid black"}>
-            <HiUpload /> Upload file
+            <HiUpload /> Upload Image
           </Button>
         </FileUpload.Trigger>
       </FileUpload.Root>

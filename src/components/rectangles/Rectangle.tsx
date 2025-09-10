@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import type { RegionType } from "../../types/regionTypes";
 import { Button, Flex, Icon, Input, Text } from "@chakra-ui/react";
 import { useGlobalStore } from "../../hooks/zustand/useGlobalStore";

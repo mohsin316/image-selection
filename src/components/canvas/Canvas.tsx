@@ -1,4 +1,4 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Layer, Stage, Rect, Image, Group, Text } from "react-konva";
 import {
   handleMouseDown,

@@ -1,6 +1,5 @@
-import { Button, Heading, Tooltip } from "@chakra-ui/react";
+import { Button, Heading } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
-import { handleExport } from "../../utils/ImageHandling";
 import { useGlobalStore } from "../../hooks/zustand/useGlobalStore";
 
 export function Controls() {
