@@ -9,6 +9,9 @@ export type State = {
 
 export type Actions = {
   setRegions: (regions: RegionType[]) => void;
+  addRegion: (region: RegionType) => void;
+  updateRegion: (region: RegionType) => void;
+  deleteRegion: (region: RegionType) => void;
   setIsDrawMode: (isDrawMode: boolean) => void;
   setStagePos: (stagePos: { x: number; y: number }) => void;
   setScale: (scale: number) => void;

@@ -1,66 +1,40 @@
-import { Button, FileUpload, Flex, Input } from "@chakra-ui/react";
-import { Layer, Stage, Rect, Image, Group } from "react-konva";
+import { Flex, Heading } from "@chakra-ui/react";
+import { Layer, Stage, Rect, Image, Group, Text } from "react-konva";
 import {
   handleMouseDown,
   handleMouseMove,
   handleMouseUp,
+  handleWheel,
 } from "../../utils/mouseMovements";
 import type Konva from "konva";
 import { useRef, useState } from "react";
 import { useGlobalStore } from "../../hooks/zustand/useGlobalStore";
 import type { RegionType } from "../../types/regionTypes";
-import { Heading } from "./Heading";
+import { CanvasHeading } from "./CanvasHeading";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../../utils/common";
 
 export const Canvas = () => {
   const imageRef = useRef<Konva.Image | null>(null);
   const stageRef = useRef<Konva.Stage | null>(null);
+
   const [image, setImage] = useState<HTMLImageElement | undefined>(undefined);
+  const [newRegion, setNewRegion] = useState<RegionType | null>(null);
+  const [isDrawing, setIsDrawing] = useState(false);
 
   const {
     regions,
-    setRegions,
+    addRegion,
     isDrawMode,
     stagePos,
     setStagePos,
     scale,
     setScale,
   } = useGlobalStore();
-  const [newRegion, setNewRegion] = useState<RegionType | null>(null);
-  const [isDrawing, setIsDrawing] = useState(false);
 
-  const handleWheel = (e: Konva.KonvaEventObject<WheelEvent>) => {
-    e.evt.preventDefault();
-
-    const stage = stageRef.current;
-    if (!stage) return;
-
-    const scaleBy = 1.05;
-    const oldScale = stage.scaleX();
-
-    // mouse position relative to stage
-    const mousePointTo = {
-      x: stage.getPointerPosition()!.x / oldScale - stage.x() / oldScale,
-      y: stage.getPointerPosition()!.y / oldScale - stage.y() / oldScale,
-    };
-
-    // zoom in or out
-    const direction = e.evt.deltaY > 0 ? -1 : 1;
-    const newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy;
-
-    setScale(newScale);
-
-    // adjust position so zoom is focused on mouse pointer
-    setStagePos({
-      x:
-        -(mousePointTo.x - stage.getPointerPosition()!.x / newScale) * newScale,
-      y:
-        -(mousePointTo.y - stage.getPointerPosition()!.y / newScale) * newScale,
-    });
-  };
   return (
-    <Flex border={"1px solid black"} direction={"column"}>
+    <Flex border={"1px solid black"} direction={"column"} w={"100%"}>
       <Flex justify={"space-between"} align={"center"} w={"100%"}>
-        <Heading
+        <CanvasHeading
           stageRef={stageRef}
           setImage={setImage}
           setStagePos={setStagePos}
@@ -86,38 +60,56 @@ export const Canvas = () => {
             newRegion,
             setNewRegion,
             setIsDrawing,
-            setRegions,
-            regions,
+            addRegion,
           });
+        }}
+        onWheel={(e) => {
+          if (!image) return;
+          handleWheel({ e, stageRef, setScale, setStagePos });
+        }}
+        onDragEnd={(e) => {
+          if (!image || isDrawMode) return;
+          setStagePos({ x: e.target.x(), y: e.target.y() });
         }}
         scaleX={scale}
         scaleY={scale}
         x={stagePos.x}
         y={stagePos.y}
         draggable={!isDrawMode}
-        onDragEnd={(e) => {
-          if (!image || isDrawMode) return;
-          setStagePos({ x: e.target.x(), y: e.target.y() });
-        }}
-        onWheel={(e) => {
-          if (!image) return;
-          handleWheel(e);
-        }}
-        width={500}
-        height={300}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
         ref={stageRef}
+        style={{ cursor: !isDrawMode ? "grab" : "default" }}
       >
         <Layer>
           <Group>
-            <Image image={image} width={500} height={300} ref={imageRef} />
+            <Image
+              image={image}
+              width={CANVAS_WIDTH}
+              height={CANVAS_HEIGHT}
+              ref={imageRef}
+            />
             {regions.map((region) => (
-              <Rect
+              <Group
                 key={region.id}
-                {...region}
-                stroke={region.color}
-                strokeWidth={1}
                 draggable={isDrawMode}
-              />
+                x={region.x}
+                y={region.y}
+              >
+                <Rect
+                  width={region.width}
+                  height={region.height}
+                  stroke={region.color}
+                  strokeWidth={1}
+                />
+                <Text
+                  text={region.label}
+                  fontSize={14}
+                  fill="black"
+                  x={2}
+                  y={-18}
+                />
+              </Group>
             ))}
 
             {newRegion && (

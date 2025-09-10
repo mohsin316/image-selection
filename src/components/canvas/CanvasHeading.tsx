@@ -1,9 +1,9 @@
-import { Button, Heading as ChakraHeading, FileUpload } from "@chakra-ui/react";
+import { Button, Heading, FileUpload } from "@chakra-ui/react";
 import type Konva from "konva";
 import { handleExport, handleFileChange } from "../../utils/ImageHandling";
 import { HiUpload } from "react-icons/hi";
 import { useGlobalStore } from "../../hooks/zustand/useGlobalStore";
-export function Heading({
+export function CanvasHeading({
   stageRef,
   setImage,
   setStagePos,
@@ -17,7 +17,7 @@ export function Heading({
   const { setRegions } = useGlobalStore();
   return (
     <>
-      <ChakraHeading color={"black"}>Canvas</ChakraHeading>
+      <Heading color={"black"}>Canvas</Heading>
       <Button
         ml={"auto"}
         onClick={() => handleExport({ stageRef })}
@@ -31,7 +31,8 @@ export function Heading({
         <FileUpload.HiddenInput
           onChange={(e) => {
             setRegions([]);
-
+            setStagePos({ x: 0, y: 0 });
+            setScale(1);
             handleFileChange({ e, setImage });
           }}
         />
