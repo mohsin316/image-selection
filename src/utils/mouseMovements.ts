@@ -21,7 +21,7 @@ export const handleMouseDown = ({
   if (!clickedOnEmpty) return;
 
   if (image && stage) {
-    const pointerPosition = stage.getPointerPosition();
+    const pointerPosition = stage.getRelativePointerPosition();
     if (pointerPosition) {
       const { x, y } = pointerPosition;
       setNewRegion({
@@ -51,7 +51,7 @@ export const handleMouseMove = ({
   if (!newRegion || !isDrawing) return;
   const stage = stageRef.current;
   if (stage) {
-    const pointerPosition = stage.getPointerPosition();
+    const pointerPosition = stage.getRelativePointerPosition();
     if (pointerPosition) {
       const { x, y } = pointerPosition;
       setNewRegion({
