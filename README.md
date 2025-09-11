@@ -1,69 +1,60 @@
-# React + TypeScript + Vite
+# Loopr Image analyzer Assignment Submission
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of contents
 
-Currently, two official plugins are available:
+- [Overview](#overview)
+  - [Personal](#personal)
+  - [Objective](#objective)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## Expanding the ESLint configuration
+### Personal
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This git repository is for the Loopr assignment submission.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Submission by:  
+Name: **Mohsin Miyaji**  
+Email: **mohsin.kmiyaji@gmail.com**
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Objective
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Allow users to upload their own image and draw rectangles with labels.
+- Provide the ability to drag and zoom while keeping the rectangles in the same position.
+- Ensure the user is able to download the final result when completed.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Screenshot
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+![](src/preview/intro.png)  
+![](src/preview/selection.png)  
+![](src/preview/selection2.png)  
+![](src/preview/testpic.png)  
+![](src/preview/testpic2.png)  
+![](src/preview/selctionMovement.png)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Links
+
+- GitHub URL: [Add solution URL here](https://github.com/mohsin316/image-selection)
+- Live Site URL: [Add live site URL here](https://image-selection-ivory.vercel.app/)
+
+## My process
+
+I built this project using **React** and **TypeScript** with **Vite** as the bundler.  
+The main functionality [drawing/zooming/etc.] was implemented using **Konva**.  
+For styling and components, I used **Chakra-ui**.  
+Deployment was done using **Vercel**.
+
+### Built with
+
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox & CSS Grid
+- **React**
+- **TypeScript**
+- **Vite**
+- **Chakra-ui**
+- **Konva**
+- **Vercel**

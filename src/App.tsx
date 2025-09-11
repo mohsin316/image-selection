@@ -14,7 +14,14 @@ function App() {
       align={"center"}
       bg={"white"}
     >
-      <Flex w={"90%"} bg="white" color={"black"} direction={"column"}>
+      <Flex
+        w={"90%"}
+        bg="white"
+        color={"black"}
+        direction={"column"}
+        borderRadius={8}
+        overflow={"hidden"}
+      >
         <Flex w={"100%"}>
           <Canvas />
           <Rectangles />

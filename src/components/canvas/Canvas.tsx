@@ -32,7 +32,13 @@ export const Canvas = () => {
   } = useGlobalStore();
 
   return (
-    <Flex border={"1px solid black"} direction={"column"} w={"100%"}>
+    <Flex
+      border={"1px solid black"}
+      direction={"column"}
+      w={"100%"}
+      borderTopLeftRadius={8}
+      overflow={"hidden"}
+    >
       <CanvasHeading
         stageRef={stageRef}
         image={image}
@@ -41,91 +47,104 @@ export const Canvas = () => {
         setScale={setScale}
       />
 
-      <Stage
-        onMouseDown={(e) => {
-          if (!image || !isDrawMode) return;
-          handleMouseDown({
-            e,
-            setNewRegion,
-            setIsDrawing,
-            stageRef,
-            imageRef,
-          });
-        }}
-        onMouseMove={() => {
-          handleMouseMove({ setNewRegion, newRegion, isDrawing, stageRef });
-        }}
-        onMouseUp={() => {
-          handleMouseUp({
-            newRegion,
-            setNewRegion,
-            setIsDrawing,
-            addRegion,
-          });
-        }}
-        onWheel={(e) => {
-          if (!image) return;
-          handleWheel({ e, stageRef, setScale, setStagePos });
-        }}
-        onDragEnd={(e) => {
-          if (!image || isDrawMode) return;
-          setStagePos({ x: e.target.x(), y: e.target.y() });
-        }}
-        scaleX={scale}
-        scaleY={scale}
-        x={stagePos.x}
-        y={stagePos.y}
-        draggable={!isDrawMode}
-        width={CANVAS_WIDTH}
-        height={CANVAS_HEIGHT}
-        ref={stageRef}
-        style={{ cursor: !isDrawMode ? "grab" : "default" }}
-      >
-        <Layer>
-          <Group>
-            <Image
-              image={image}
-              width={CANVAS_WIDTH}
-              height={CANVAS_HEIGHT}
-              ref={imageRef}
-            />
-            {regions.map((region) => (
-              <Group
-                key={region.id}
-                draggable={isDrawMode}
-                x={region.x}
-                y={region.y}
-              >
-                <Rect
-                  width={region.width}
-                  height={region.height}
-                  stroke={region.color}
-                  strokeWidth={1}
-                />
-                <Group x={0} y={-20}>
+      {!image ? (
+        <Flex
+          h={CANVAS_HEIGHT}
+          w={CANVAS_WIDTH}
+          justify={"center"}
+          align={"center"}
+        >
+          <Text fontSize={100} fontWeight={"bold"}>
+            Upload an image to get started
+          </Text>
+        </Flex>
+      ) : (
+        <Stage
+          onMouseDown={(e) => {
+            if (!image || !isDrawMode) return;
+            handleMouseDown({
+              e,
+              setNewRegion,
+              setIsDrawing,
+              stageRef,
+              imageRef,
+            });
+          }}
+          onMouseMove={() => {
+            handleMouseMove({ setNewRegion, newRegion, isDrawing, stageRef });
+          }}
+          onMouseUp={() => {
+            handleMouseUp({
+              newRegion,
+              setNewRegion,
+              setIsDrawing,
+              addRegion,
+            });
+          }}
+          onWheel={(e) => {
+            if (!image) return;
+            handleWheel({ e, stageRef, setScale, setStagePos });
+          }}
+          onDragEnd={(e) => {
+            if (!image || isDrawMode) return;
+            setStagePos({ x: e.target.x(), y: e.target.y() });
+          }}
+          scaleX={scale}
+          scaleY={scale}
+          x={stagePos.x}
+          y={stagePos.y}
+          draggable={!isDrawMode}
+          width={CANVAS_WIDTH}
+          height={CANVAS_HEIGHT}
+          ref={stageRef}
+          style={{ cursor: !isDrawMode ? "grab" : "default" }}
+        >
+          <Layer>
+            <Group>
+              <Image
+                image={image}
+                width={CANVAS_WIDTH}
+                height={CANVAS_HEIGHT}
+                ref={imageRef}
+              />
+              {regions.map((region) => (
+                <Group
+                  key={region.id}
+                  draggable={isDrawMode}
+                  x={region.x}
+                  y={region.y}
+                >
                   <Rect
-                    fill={region.color}
-                    width={region.label ? region.label.length * 8 + 12 : 0}
-                    height={20}
-                    cornerRadius={4}
+                    width={region.width}
+                    height={region.height}
+                    stroke={region.color}
+                    strokeWidth={1}
                   />
-                  <Text
-                    text={region.label}
-                    fontSize={14}
-                    fill="white"
-                    x={6}
-                    y={3}
-                  />
+                  <Group x={0} y={-20}>
+                    <Rect
+                      fill={region.color}
+                      width={region.label ? region.label.length * 8 + 12 : 0}
+                      height={20}
+                      cornerRadius={4}
+                    />
+                    <Text
+                      text={region.label}
+                      fontSize={14}
+                      fill="white"
+                      x={6}
+                      y={3}
+                    />
+                  </Group>
                 </Group>
-              </Group>
-            ))}
+              ))}
 
-            {newRegion && (
-              <Rect {...newRegion} stroke={"black"} strokeWidth={1} />
-            )}
-          </Group>
-        </Layer>
-      </Stage>
+              {newRegion && (
+                <Rect {...newRegion} stroke={"black"} strokeWidth={1} />
+              )}
+            </Group>
+          </Layer>
+        </Stage>
+      )}
     </Flex>
   );
 };

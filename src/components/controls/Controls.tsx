@@ -13,7 +13,16 @@ export function Controls() {
     scale,
   } = useGlobalStore();
   return (
-    <Flex direction={"column"} w={"100%"} p={2} gap={4}>
+    <Flex
+      direction={"column"}
+      w={"100%"}
+      p={2}
+      pb={4}
+      pl={4}
+      gap={4}
+      bg={"gray.100"}
+      borderTop={"1px solid lightgray"}
+    >
       <Heading color={"black"}>Controls (Scroll to zoom in/out)</Heading>
 
       <Flex gap={4}>

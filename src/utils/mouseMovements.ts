@@ -16,7 +16,6 @@ export const handleMouseDown = ({
 }) => {
   const stage = stageRef.current;
   const image = imageRef.current;
-  // Check if clicked on empty area (the stage itself)
   const clickedOnEmpty = e.target === image;
   if (!clickedOnEmpty) return;
 
@@ -101,19 +100,16 @@ export const handleWheel = ({
   const scaleBy = 1.05;
   const oldScale = stage.scaleX();
 
-  // mouse position relative to stage
   const mousePointTo = {
     x: stage.getPointerPosition()!.x / oldScale - stage.x() / oldScale,
     y: stage.getPointerPosition()!.y / oldScale - stage.y() / oldScale,
   };
 
-  // zoom in or out
   const direction = e.evt.deltaY > 0 ? -1 : 1;
   const newScale = direction > 0 ? oldScale * scaleBy : oldScale / scaleBy;
 
   setScale(newScale);
 
-  // adjust position so zoom is focused on mouse pointer
   setStagePos({
     x: -(mousePointTo.x - stage.getPointerPosition()!.x / newScale) * newScale,
     y: -(mousePointTo.y - stage.getPointerPosition()!.y / newScale) * newScale,
