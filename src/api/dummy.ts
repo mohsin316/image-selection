@@ -1,5 +1,5 @@
 const handleDummyApiCall = async () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((_, reject) => {
     setTimeout(() => {
       reject("Now rejecting dummy promise call");
     }, 1000);
