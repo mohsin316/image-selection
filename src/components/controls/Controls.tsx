@@ -4,15 +4,8 @@ import { useGlobalStore } from "../../hooks/zustand/useGlobalStore";
 import * as Sentry from "@sentry/react";
 import { handleDummyApiCall, handleDummyFetchRequest } from "../../api/dummy";
 export function Controls() {
-  const {
-    setRegions,
-    isDrawMode,
-    setIsDrawMode,
-    setStagePos,
-    setScale,
-    stagePos,
-    scale,
-  } = useGlobalStore();
+  const { isDrawMode, setIsDrawMode, setStagePos, setScale, stagePos, scale } =
+    useGlobalStore();
 
   const callDummyPromise = async () => {
     try {
