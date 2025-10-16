@@ -61,16 +61,44 @@ export function Controls() {
         )}
         <button
           onClick={() => {
-            // // Send a log before throwing the error
-            // Sentry.logger.info('User triggered test error', {
-            //   action: 'test_error_button_click',
+            // Send a log before throwing the error
+            Sentry.logger.info("User triggered test error", {
+              action: "test_error_button_click",
+            });
+            Sentry.captureException(new Error("This is your first error!"));
 
-            // });
             throw new Error("This is your first error!");
           }}
         >
-          Break the world
+          Throw error 1
         </button>
+        <Button
+          onClick={() => {
+            try {
+              localStorage.parse([]);
+            } catch (error) {
+              Sentry.captureException(error);
+              throw error; // Re-throw if you want it to bubble up
+            }
+          }}
+        >
+          Throw error 3
+        </Button>
+        <Button
+          onClick={() => {
+            try {
+              const obj = null;
+              // @ts-expect-error Accessing property on null intentionally to trigger error for demo
+              // eslint-disable-next-line
+              obj.someProperty.value;
+            } catch (error) {
+              Sentry.captureException(error);
+              throw error; // Re-throw if you want it to bubble up
+            }
+          }}
+        >
+          TypeError: Cannot read property of null
+        </Button>
         <Button
           onClick={() => {
             // setRegions([]);
